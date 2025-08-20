@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col , to_date, date_add, date_diff,sequence, min, max,explode, expr
+from pyspark.sql.functions import col , to_date,sequence, min, max,explode, expr
 
 spark = SparkSession.builder.appName("DetectMissingDates").getOrCreate()
 
@@ -12,7 +12,7 @@ sales_df1 = sales_df1.withColumn("date",to_date("date"))
 # sales_df1.show()
 # sales_df1.printSchema()
 
-sales_df2 = sales_df1.agg(min("date").alias("startdate"),max("date").alias("enddate")).first()
+sales_df2 = sales_df1.agg(min("date").alias("startdate"),max("date").alias("enddate")).first() #returns a single Row
 startdate = sales_df2["startdate"]   # Python datetime.date
 enddate   = sales_df2["enddate"]
 
